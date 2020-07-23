@@ -1,0 +1,13 @@
+---
+- name: Add db user user
+  action: 'user name={{ db_user }} password={{ deploy_password }} generate_ssh_key=yes shell=/bin/bash'
+
+# - name: Add authorized db_user keys
+#   action: "authorized_key user={{ db_user }} key=\"{{ lookup('file', item) }}\""
+#   with_items: '{{ ssh_public_key_files }}'
+#
+# - name: Remove sudo group rights
+#   action: lineinfile dest=/etc/sudoers regexp="^%sudo" state=absent
+
+- name: Add db user user to sudoers
+  action: 'lineinfile dest=/etc/sudoers regexp="{{ db_user }} ALL" line="{{ db_user }} ALL=(ALL) NOPASSWD: ALL" state=present'

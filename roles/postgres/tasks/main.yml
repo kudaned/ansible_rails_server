@@ -1,0 +1,35 @@
+---
+- name: Install Postgres dependencies
+  apt:
+    name: ["bash",
+            "openssl",
+            "libssl-dev",
+            "libssl-doc",
+            "postgresql",
+            "postgresql-contrib",
+            "libpq-dev",
+            "python3-pip"
+    ]
+
+- debug:
+    msg: User {{ db_user }} DBName {{db_name}} Pwd {{db_password}}
+
+- name: install psycopg2 python module
+  pip: name=psycopg2
+
+- name: "Create deploy PostgreSQL user"
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: 'deploy'
+    password: "{{db_password}}"
+
+- name: Ensure we have access from the new user
+  become: yes
+  become_user: postgres
+  postgresql_privs:
+    db: "{{ db_name }}"
+    role: 'deploy'
+    objs: ALL_IN_SCHEMA
+    privs: SELECT,INSERT,UPDATE,DELETE
+

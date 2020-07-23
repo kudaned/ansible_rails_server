@@ -1,0 +1,33 @@
+# Install python and aptitude on the target machines (apt-get install python aptitude)
+# Copy ssh public key to machines (ssh-copy-id user@host)
+---
+- name: Install Rails Server
+  hosts: webservers
+  # After initial provisioning, use deploy instead of root
+  remote_user: root
+  # remote_user: deploy
+  # become: yes
+  # become_method: sudo
+  gather_facts: no # don't gather facts because /usr/bin/python isn't set
+  pre_tasks:
+    - name: apt-get update
+      raw: apt-get update -qq
+    - name: install python 3.6.9 and aptitude
+      raw: apt-get install -qq python3.6 aptitude
+    - name: set python 3.6.9 as default
+      raw: update-alternatives --install /usr/bin/python python /usr/bin/python3.6 1
+  roles:
+    - common
+    - deploy-user
+    - ruby
+    - nginx
+    - postgres
+
+    # Not in use anymore
+    # - rbenv-ruby
+    # - rails
+    # - monit
+    # - memcached
+    # - redis
+    # - elasticsearch
+

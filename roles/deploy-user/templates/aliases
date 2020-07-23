@@ -1,0 +1,28 @@
+alias reload="source ~/.{{shell}}rc"
+alias vialias="vi ~/.bash_aliases"
+alias aliases="cat ~/.bash_aliases"
+
+# Rails
+alias tail_prod="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/production.log"
+alias cd_current="cd /home/deploy/apps/{{deploy_app_name}}/current"
+alias cd_logs="cd /home/deploy/apps/{{deploy_app_name}}/current/log"
+alias cd_shared="cd /home/deploy/apps/{{deploy_app_name}}/shared"
+alias rails_c="cd ~/apps/{{deploy_app_name}}/current && RAILS_ENV=production bundle exec rails console"
+
+# Nginx
+alias nginx_tail_access="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/nginx.access.log"
+alias nginx_tail_error="tail -f /var/log/nginx/error.log"
+alias nginx_vi_access="vi /home/deploy/apps/{{deploy_app_name}}/shared/log/nginx.access.log"
+alias nginx_vi_error="vi /var/log/nginx/error.log"
+alias nginx_vi_sites="vi /etc/nginx/sites-available/{{ deploy_app_name }}"
+alias nginx_vi_conf="vi /etc/nginx/nginx.conf"
+alias nginx_check_config="nginx -t -c /etc/nginx/nginx.conf"
+alias nginx_status="systemctl status nginx"
+alias nginx_restart="systemctl restart nginx"
+
+# Puma
+alias puma_restart="cd_current && bundle exec pumactl -P /home/deploy/apps/{{deploy_app_name}}/shared/tmp/pids/puma.pid restart"
+alias puma_tail_access="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/puma.access.log"
+alias puma_tail_error="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/puma.error.log"
+alias puma_vi_access="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/puma.access.log"
+alias puma_vi_error="tail -f /home/deploy/apps/{{deploy_app_name}}/shared/log/puma.error.log"

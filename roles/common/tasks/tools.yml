@@ -1,0 +1,23 @@
+- name: Install Tools
+  apt:
+    name: ["build-essential",
+            "tmux",
+            "vim",
+            "htop",
+            "git-core",
+            "wget",
+            "zlib1g-dev",
+            "libssl-dev",
+            "libreadline-dev",
+            "libyaml-dev",
+            "libxml2-dev",
+            "libxslt1-dev",
+            "libffi-dev",
+            "curl",
+            "libcurl4",
+            "libcurl3-gnutls",
+            "libcurl4-openssl-dev",
+            "nodejs",
+            "nginx",
+            "libsqlite3-dev",
+            "libpq-dev"]
